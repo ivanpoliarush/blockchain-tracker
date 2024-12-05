@@ -17,7 +17,7 @@ export class TRPCRouter {
 		getAddress: this.trpc.producer.query(async () => {
 			const followingAddress =
 				await this.addressService.getFollowingAddress();
-			return { followingAddress };
+			return { followingAddress: followingAddress?.address };
 		}),
 		updateAddress: this.trpc.producer
 			.input(z.object({ address: z.string() }))

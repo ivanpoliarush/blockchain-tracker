@@ -18,7 +18,7 @@ export class TransactionService {
 
 		const transactions =
 			await this.transactionRepository.findTransactionsByAddress(
-				followingAddress,
+				followingAddress.address,
 			);
 
 		return transactions;

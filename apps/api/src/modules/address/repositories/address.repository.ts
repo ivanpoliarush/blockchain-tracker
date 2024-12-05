@@ -10,16 +10,20 @@ export class AddressRepository {
 		return this.prisma.address.findFirst({ where: filter });
 	}
 
-	async create(address: string) {
+	async create(address: string, lastBlockNumber: number) {
 		return this.prisma.address.create({
 			data: {
 				address,
+				lastBlockNumber,
 			},
 		});
 	}
 
-	async updateOneById(id: number, address: string) {
-		return this.prisma.address.update({ where: { id }, data: { address } });
+	async updateOneById(id: number, address: string, lastBlockNumber: number) {
+		return this.prisma.address.update({
+			where: { id, lastBlockNumber },
+			data: { address },
+		});
 	}
 
 	async deleteOneById(id: number) {

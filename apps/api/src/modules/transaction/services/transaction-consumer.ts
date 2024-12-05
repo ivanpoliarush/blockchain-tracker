@@ -38,9 +38,13 @@ export class TransactionConsumer implements OnModuleInit {
 				return;
 			}
 
+			if (followingAddress.lastBlockNumber >= transaction.blockNumber) {
+				return;
+			}
+
 			if (
-				transaction.to !== followingAddress &&
-				transaction.from !== followingAddress
+				transaction.to !== followingAddress.address &&
+				transaction.from !== followingAddress.address
 			) {
 				return;
 			}
@@ -55,7 +59,7 @@ export class TransactionConsumer implements OnModuleInit {
 
 			await this.transactionRepository.createTransaction({
 				...transaction,
-				followingAddress,
+				followingAddress: followingAddress.address,
 			});
 
 			this.appGateway.sendMessage('transaction', transaction);
