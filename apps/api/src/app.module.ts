@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TransactionModule } from './transaction/transaction.module';
+import { TransactionModule } from './modules/transaction/transaction.module';
 import { KafkaModule } from '@shared-api';
 import { getKafkaModuleConfig } from './config/kafka-module.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
