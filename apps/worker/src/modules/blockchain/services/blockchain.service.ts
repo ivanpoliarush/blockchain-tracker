@@ -9,6 +9,7 @@ import { BLOCKCHAIN_MODULE_OPTIONS_KEY } from '../constants/module';
 import { BlockchainModuleConfig } from '../types/module';
 import { Transaction } from '@shared-types';
 import { ProducerService } from '@shared-api';
+import { Queue } from '@shared-utils';
 
 @Injectable()
 export class BlockchainService implements OnModuleInit, OnModuleDestroy {
@@ -25,6 +26,8 @@ export class BlockchainService implements OnModuleInit, OnModuleDestroy {
 			this.config.blockchainConnectionUrl,
 		);
 		this.provider.on('block', this.handleNewBlock.bind(this));
+
+		await this.emitAllTransactions();
 	}
 
 	onModuleDestroy() {
@@ -32,11 +35,27 @@ export class BlockchainService implements OnModuleInit, OnModuleDestroy {
 		this.provider.destroy();
 	}
 
+	private async emitAllTransactions() {
+		const queue = new Queue({ maxTasksCount: 5 });
+
+		const blocksCount = await this.provider.getBlockNumber();
+		const transactionTasks = Array.from({
+			length: blocksCount,
+		}).map((_, index) => {
+			return async () => {
+				await this.handleNewBlock(index + 1);
+			};
+		});
+
+		await queue.run(transactionTasks);
+	}
+
 	private async handleNewBlock(blockNumber: number) {
 		const block = await this.provider.getBlock(blockNumber);
 		const promises = block.transactions.map(async (hash) => {
 			const blockchainTransaction =
 				await this.provider.getTransaction(hash);
+
 			const transaction: Transaction = {
 				hash,
 				blockNumber,

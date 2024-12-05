@@ -7,7 +7,8 @@
 		"strictPropertyInitialization": false,
 		"paths": {
 			"@shared-types": ["./packages/types/src/index.ts"],
-			"@shared-api": ["./packages/api/src/index.ts"]
+			"@shared-api": ["./packages/api/src/index.ts"],
+			"@shared-utils": ["./packages/utils/src/index.ts"]
 		}
 	}
 }
