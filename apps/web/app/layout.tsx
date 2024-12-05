@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 import './globals.css';
+import { interFont } from '../shared/ui/fonts';
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body className={interFont.className}>{children}</body>
 		</html>
 	);
 };
