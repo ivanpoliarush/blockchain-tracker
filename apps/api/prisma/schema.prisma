@@ -16,7 +16,7 @@ model Address {
 
 model Transaction {
   id Int @default(autoincrement()) @id
-  blockNumber BigInt
+  blockNumber Int
   from String
   to String
   hash String
