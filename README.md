@@ -2,9 +2,9 @@ This project is built with NestJS and NextJS using a PostgreSQL database. The id
 
 To run the application:
 
-    git clone https://github.com/ivanpoliarush/blockhain-tracker.git
+    git clone https://github.com/ivanpoliarush/blockchain-tracker.git
 
-    cd blockhain-tracker
+    cd blockchain-tracker
 
     add ".env" files(you can use .env.example)
 
