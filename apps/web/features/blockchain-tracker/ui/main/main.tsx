@@ -29,8 +29,8 @@ export const BlockchainTracker = () => {
 		<div className="flex flex-col gap-[40px] items-center">
 			<SearchInput />
 			<div
-				className={clsx('h-[70vh] transition-all duration-1000', {
-					['h-[70vh] overflow-scroll pb-14']: address,
+				className={clsx('transition-all duration-1000', {
+					['h-[70vh] overflow-scroll pb-14']: !!address,
 					['h-[0vh] overflow-hidden']: !address,
 				})}
 			>
