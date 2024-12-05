@@ -10,6 +10,7 @@ datasource db {
 model Address {
   id Int @default(autoincrement()) @id
   address String @unique
+  lastBlockNumber Int
   createAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
