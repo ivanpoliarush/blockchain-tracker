@@ -7,13 +7,21 @@ import { ErrorMessage } from '../error-message/error-message';
 import { SearchInput } from '../search-input/search-input';
 import { TransactionList } from '../transactions-list/transactions-list';
 import clsx from 'clsx';
+import { useTransactions } from '../../hooks/use-transactions';
 
 export const BlockchainTracker = () => {
 	const { loading, error, address, fetchAddress } = useAddress();
+	const { fetchTransactions } = useTransactions();
 
 	useEffect(() => {
 		fetchAddress();
 	}, []);
+
+	useEffect(() => {
+		if (address) {
+			fetchTransactions();
+		}
+	}, [address]);
 
 	if (loading) {
 		return <Loader />;
@@ -34,7 +42,7 @@ export const BlockchainTracker = () => {
 					['h-[0vh] overflow-hidden']: !address,
 				})}
 			>
-				<TransactionList transactions={[]} />
+				<TransactionList />
 			</div>
 		</div>
 	);

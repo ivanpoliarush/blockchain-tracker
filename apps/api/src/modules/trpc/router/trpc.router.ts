@@ -3,12 +3,14 @@ import { TRPCService } from '../services/trpc.service';
 import { AddressService } from 'src/modules/address/services/address.service';
 import { z } from 'zod';
 import * as trpcExpress from '@trpc/server/adapters/express';
+import { TransactionService } from 'src/modules/transaction/services/transaction.service';
 
 @Injectable()
 export class TRPCRouter {
 	constructor(
 		private readonly trpc: TRPCService,
 		private readonly addressService: AddressService,
+		private readonly transactionService: TransactionService,
 	) {}
 
 	appRouter = this.trpc.router({
@@ -24,6 +26,11 @@ export class TRPCRouter {
 			}),
 		deleteAddress: this.trpc.producer.query(async () => {
 			await this.addressService.deleteFollowingAddress();
+		}),
+		getTransactions: this.trpc.producer.query(async () => {
+			const transactions =
+				await this.transactionService.getFollowingTransactions();
+			return transactions;
 		}),
 	});
 
