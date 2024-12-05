@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { AddressRepository } from '../repositories/address.repository';
+import { TransactionRepository } from 'src/modules/transaction/repositories/transaction.repository';
 
 @Injectable()
 export class AddressService {
-	constructor(private readonly addressRepository: AddressRepository) {}
+	constructor(
+		private readonly addressRepository: AddressRepository,
+		private readonly transactionRepository: TransactionRepository,
+	) {}
 
 	async getFollowingAddress() {
 		const addressInfo = await this.addressRepository.findOne({});
@@ -18,7 +22,12 @@ export class AddressService {
 		const addressInfo = await this.addressRepository.findOne({});
 
 		if (addressInfo) {
-			await this.addressRepository.updateOneById(addressInfo.id, address);
+			await Promise.all([
+				this.addressRepository.updateOneById(addressInfo.id, address),
+				this.transactionRepository.deleteTransactionsByAddress(
+					addressInfo.address,
+				),
+			]);
 		} else {
 			await this.addressRepository.create(address);
 		}
@@ -30,6 +39,11 @@ export class AddressService {
 			return;
 		}
 
-		await this.addressRepository.deleteOneById(addressInfo.id);
+		await Promise.all([
+			this.addressRepository.deleteOneById(addressInfo.id),
+			this.transactionRepository.deleteTransactionsByAddress(
+				addressInfo.address,
+			),
+		]);
 	}
 }

@@ -10,8 +10,10 @@ import { KAFKA_MODULE_OPTIONS_KEY } from '../constants/module';
 
 @Injectable()
 export class ProducerService implements OnModuleInit, OnModuleDestroy {
-	private kafka: Kafka;
-	private producer: Producer;
+	private kafka: Kafka = new Kafka({
+		brokers: [this.config.kafkaConnectionUrl],
+	});
+	private producer: Producer = this.kafka.producer();
 
 	constructor(
 		@Inject(KAFKA_MODULE_OPTIONS_KEY)
@@ -19,9 +21,6 @@ export class ProducerService implements OnModuleInit, OnModuleDestroy {
 	) {}
 
 	async onModuleInit() {
-		this.kafka = new Kafka({ brokers: [this.config.kafkaConnectionUrl] });
-		this.producer = this.kafka.producer();
-
 		await this.producer.connect();
 	}
 

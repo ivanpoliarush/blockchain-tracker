@@ -14,21 +14,16 @@ import { KAFKA_MODULE_OPTIONS_KEY } from '../constants/module';
 import { KafkaModuleConfig } from '../types/module';
 
 @Injectable()
-export class ConsumerService implements OnModuleInit, OnModuleDestroy {
-	private kafka: Kafka;
-	private consumers: Consumer[];
+export class ConsumerService implements OnModuleDestroy {
+	private kafka: Kafka = new Kafka({
+		brokers: [this.config.kafkaConnectionUrl],
+	});
+	private consumers: Consumer[] = [];
 
 	constructor(
 		@Inject(KAFKA_MODULE_OPTIONS_KEY)
 		private readonly config: KafkaModuleConfig,
 	) {}
-
-	onModuleInit() {
-		this.kafka = new Kafka({
-			brokers: [this.config.kafkaConnectionUrl],
-		});
-		this.consumers = [];
-	}
 
 	async consume(topic: ConsumerSubscribeTopics, config: ConsumerRunConfig) {
 		const consumer = this.kafka.consumer({
