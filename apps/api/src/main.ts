@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { MicroserviceOptions } from '@nestjs/microservices';
+import { TRPCRouter } from './modules/trpc/router/trpc.router';
 
 async function bootstrap() {
-	const app =
-		await NestFactory.createMicroservice<MicroserviceOptions>(AppModule);
-	await app.init();
+	const app = await NestFactory.create(AppModule);
+	app.enableCors();
+
+	const trpc = app.get(TRPCRouter);
+	trpc.applyMiddleware(app);
+	await app.listen(3001);
 }
 bootstrap();

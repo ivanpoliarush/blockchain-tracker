@@ -3,9 +3,11 @@ import { TransactionModule } from './modules/transaction/transaction.module';
 import { KafkaModule } from '@shared-api';
 import { getKafkaModuleConfig } from './config/kafka-module.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TRPCModule } from './modules/trpc/trpc.module';
 
 @Module({
 	imports: [
+		TRPCModule,
 		ConfigModule.forRoot(),
 		KafkaModule.forRoot({
 			global: true,
