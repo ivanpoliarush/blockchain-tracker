@@ -1,7 +1,13 @@
 {
 	"compilerOptions": {
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"target": "ES6",
+		"module": "commonjs",
+		"strictPropertyInitialization": false,
 		"paths": {
-			"@shared": ["./packages/shared/src/types.ts"]
+			"@shared-types": ["./packages/types/src/index.ts"],
+			"@shared-api": ["./packages/api/src/index.ts"]
 		}
 	}
 }

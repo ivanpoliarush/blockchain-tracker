@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { BlockchainModuleConfig } from 'src/modules/blockchain/types/module';
+import { BlockchainModuleConfig } from '../modules/blockchain/types/module';
 
 export const getBlockchainModuleConfig = (
 	configService: ConfigService,

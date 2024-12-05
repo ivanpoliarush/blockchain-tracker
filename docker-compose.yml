@@ -12,3 +12,37 @@ services:
             - '5432:5432'
         volumes:
             - ./pgdata:/var/lib/postgresql/data
+
+    zookeeper:
+        image: 'bitnami/zookeeper:latest'
+        container_name: 'zookeeper'
+        ports:
+            - 2181:2181
+        networks:
+            - 'blockchain-tracker-network'
+        environment:
+            - ALLOW_ANONYMOUS_LOGIN=yes
+
+    kafka:
+        image: bitnami/kafka:latest
+        container_name: 'kafka'
+        ports:
+            - 9092:9092
+        networks:
+            - 'blockchain-tracker-network'
+        restart: unless-stopped
+        depends_on:
+            - zookeeper
+        environment:
+            - KAFKA_BROKER_ID=1
+            - KAFKA_LISTENERS=PLAINTEXT://:9092
+            - ALLOW_PLAINTEXT_LISTENER=yes
+            - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+            - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+            - KAFKA_RESTART_ATTEMPTS=10
+            - KAFKA_RESTART_DELAY=5
+            - ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL=0
+
+networks:
+    blockchain-tracker-network:
+        driver: bridge
