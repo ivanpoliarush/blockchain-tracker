@@ -22,7 +22,12 @@ export class TransactionRepository {
 	}
 
 	async findTransactionsByAddress(address: string) {
-		return this.prisma.transaction.findMany({ where: { address } });
+		return this.prisma.transaction.findMany({
+			where: { address },
+			orderBy: {
+				createAt: 'desc',
+			},
+		});
 	}
 
 	async findTransactionsByHash(hash: string) {

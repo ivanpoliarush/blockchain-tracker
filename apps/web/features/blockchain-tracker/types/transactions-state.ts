@@ -5,4 +5,5 @@ export interface TransactionsState {
 	loading: boolean;
 
 	fetchTransactions: () => Promise<void>;
+	addTransaction: (transaction: Transaction) => void;
 }

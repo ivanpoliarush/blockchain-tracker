@@ -8,10 +8,12 @@ import { SearchInput } from '../search-input/search-input';
 import { TransactionList } from '../transactions-list/transactions-list';
 import clsx from 'clsx';
 import { useTransactions } from '../../hooks/use-transactions';
+import { useAddTransaction } from '../../hooks/use-add-transaction';
 
 export const BlockchainTracker = () => {
 	const { loading, error, address, fetchAddress } = useAddress();
 	const { fetchTransactions } = useTransactions();
+	useAddTransaction();
 
 	useEffect(() => {
 		fetchAddress();

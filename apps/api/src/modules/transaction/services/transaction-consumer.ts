@@ -4,6 +4,7 @@ import { Transaction } from '@shared-types';
 import { EachMessagePayload } from 'kafkajs';
 import { AddressService } from 'src/modules/address/services/address.service';
 import { TransactionRepository } from '../repositories/transaction.repository';
+import { AppGateway } from 'src/modules/socket/services/app-gateway';
 
 @Injectable()
 export class TransactionConsumer implements OnModuleInit {
@@ -13,6 +14,7 @@ export class TransactionConsumer implements OnModuleInit {
 		private readonly consumerService: ConsumerService,
 		private readonly addressService: AddressService,
 		private readonly transactionRepository: TransactionRepository,
+		private readonly appGateway: AppGateway,
 	) {}
 
 	async onModuleInit() {
@@ -55,6 +57,8 @@ export class TransactionConsumer implements OnModuleInit {
 				...transaction,
 				followingAddress,
 			});
+
+			this.appGateway.sendMessage('transaction', transaction);
 		} catch (error) {
 			this.logger.error('Failed to handle new transaction:', error);
 		}
