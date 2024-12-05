@@ -21,6 +21,7 @@ model Transaction {
   to String
   hash String
   value String
+  address String
   createAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
