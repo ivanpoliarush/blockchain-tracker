@@ -12,4 +12,8 @@ To run the application:
 
     pnpm install
 
+    pnpm build
+
+    cd apps/api && pnpx prisma migrate deploy && pnpx prisma migrate dev && cd ../..
+
     pnpm dev
