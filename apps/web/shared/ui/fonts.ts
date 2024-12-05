@@ -1,3 +1,3 @@
 import { Inter } from 'next/font/google';
 
-export const interFont = Inter();
+export const interFont = Inter({ subsets: [] });
