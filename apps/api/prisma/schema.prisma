@@ -19,7 +19,8 @@ model Transaction {
   blockNumber BigInt
   from String
   to String
-  value Decimal
+  hash String
+  value String
   createAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
