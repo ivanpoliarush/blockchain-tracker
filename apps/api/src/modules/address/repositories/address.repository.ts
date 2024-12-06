@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Address } from '@prisma/client';
-import { PrismaService } from 'src/modules/prisma/services/prisma.service';
+import { PrismaService } from '../../prisma/services/prisma.service';
 
 @Injectable()
 export class AddressRepository {

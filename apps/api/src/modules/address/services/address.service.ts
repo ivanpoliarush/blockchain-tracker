@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AddressRepository } from '../repositories/address.repository';
-import { TransactionRepository } from 'src/modules/transaction/repositories/transaction.repository';
+import { TransactionRepository } from '../../transaction/repositories/transaction.repository';
 import { ethers } from 'ethers';
 import { ADDRESS_MODULE_OPTIONS_KEY } from '../constants/module';
 import { AddressModuleConfig } from '../types/module';

@@ -1,9 +1,9 @@
 import { INestApplication, Injectable } from '@nestjs/common';
 import { TRPCService } from '../services/trpc.service';
-import { AddressService } from 'src/modules/address/services/address.service';
+import { AddressService } from '../../address/services/address.service';
 import { z } from 'zod';
 import * as trpcExpress from '@trpc/server/adapters/express';
-import { TransactionService } from 'src/modules/transaction/services/transaction.service';
+import { TransactionService } from '../../transaction/services/transaction.service';
 
 @Injectable()
 export class TRPCRouter {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TransactionRepository } from '../repositories/transaction.repository';
-import { AddressService } from 'src/modules/address/services/address.service';
+import { AddressService } from '../../address/services/address.service';
 
 @Injectable()
 export class TransactionService {

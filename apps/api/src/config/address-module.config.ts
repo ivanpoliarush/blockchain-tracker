@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { AddressModuleConfig } from 'src/modules/address/types/module';
+import { AddressModuleConfig } from '../modules/address/types/module';
 
 export const getAddressModuleConfig = (
 	configService: ConfigService,

@@ -2,9 +2,9 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConsumerService } from '@shared-api';
 import { Transaction } from '@shared-types';
 import { EachMessagePayload } from 'kafkajs';
-import { AddressService } from 'src/modules/address/services/address.service';
+import { AddressService } from '../../address/services/address.service';
 import { TransactionRepository } from '../repositories/transaction.repository';
-import { AppGateway } from 'src/modules/socket/services/app-gateway';
+import { AppGateway } from '../../socket/services/app-gateway';
 
 @Injectable()
 export class TransactionConsumer implements OnModuleInit {
